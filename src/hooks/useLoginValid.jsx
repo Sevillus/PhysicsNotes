@@ -17,6 +17,8 @@ const useLoginValid = () =>{
         setPassError( () =>{
             if(!pass){
                 return "Podaj hasło"
+            }else {
+                return "Błędne hasło lub e-mail"
             }
         })
     }
