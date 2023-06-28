@@ -1,102 +1,38 @@
 import {Box, Button, Checkbox, FormControlLabel, TextField, Typography} from "@mui/material";
-import {useState} from "react";
+import useRegistrationValid from "../hooks/useRegistrationValid.jsx";
 
 const RegistrationPage__form = () =>{
+const {
+    submitHandler,
+    handleNameChange,
+    handleSurrNameChange,
+    handleEmailChange,
+    handleReEmailChange,
+    handlePasswordChange,
+    handleRePasswordChange,
+    handleCheckboxChange,
+    userName,
+    nameError,
+    surrName,
+    surrNameError,
+    email,
+    emailError,
+    reEmail,
+    reEmailError,
+    password,
+    passwordError,
+    rePassword,
+    rePasswordError,
+    accepted,
+    checkColor
 
-    const [name, setName] = useState("")
-    const [surrName, setSurrName] = useState("")
-    const [email, setEmail] = useState("")
-    const [password, setPassword] = useState("")
-    const [rePassword, setRePassword] = useState("")
-    const [emailError, setEmailError] = useState("")
-    const [reEmail, setReEmail] = useState("")
-    const [reEmailError, setReEmailError] = useState("")
-    const [nameError, setNameError] = useState("")
-    const [surrNameError, setSurrNameError] = useState("")
-    const [passwordError, setPasswordError] = useState( "" )
-    const [rePasswordError, setRePasswordError] = useState("")
-    const [accepted, setAccepted] = useState(false)
-    const [checkColor, setCheckColor] = useState("black")
+} = useRegistrationValid ()
 
-    const handleNameChange = e => setName(e.target.value)
-    const handleSurrNameChange = e => setSurrName(e.target.value)
-    const handleEmailChange = e => setEmail(e.target.value)
-    const handlePasswordChange = e => setPassword(e.target.value)
-    const handleReEmailChange = e => setReEmail(e.target.value)
-    const handleRePasswordChange = e => setRePassword(e.target.value)
-    const handleCheckboxChange = e => setAccepted(e.target.checked)
-
-
-    const regExpEmail = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-    const regExpPass = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.])[A-Za-z\d@$!%*?&.]{8,}$/;
-
-
-    const errorCount = []
-
-    const countErrors = (error) =>{
-        if( error && !errorCount.includes(error)){
-            errorCount.push(error)
-        }else{
-            errorCount.filter(er => er !== error)
-        }
-    }
-
-    const submitHandler = (e) =>{
-
-
-        e.preventDefault()
-
-        setNameError(() => {
-            const error = !name ? "Podaj imię" : ""; // Sprawdzanie, czy błąd został zwrócony
-            countErrors(error)
-            return error;
-        });
-
-        setSurrNameError(() => {
-            const error = !surrName ? "Podaj Nazwisko" : ""; // Sprawdzanie, czy błąd został zwrócony
-            countErrors(error)
-            return error;
-        });
-
-
-        setRePasswordError( () =>{
-            const error = password !== rePassword ? "Podane hasła nie są identyczne!" : ""
-            countErrors(error)
-            return error;
-        })
-
-        setCheckColor( () =>{
-            const error = !accepted ? "red" : ""
-            countErrors()
-            return error
-        })
-
-
-        setEmailError(() => {
-            const error = !email ? "Podaj adres e-mail" : ( !regExpEmail.test(email) ? "Błędny adres e-mail":"" )
-            countErrors(error)
-            return error
-        })
-
-        setReEmailError(() => {
-            const error = email !== reEmail ? "Podane adresy e-mail nie są takie same" : ""
-            countErrors(error)
-            return error
-        })
-
-        setPasswordError( () => {
-            const error = !regExpPass.test(password) ? "hasło powinno zawierać jeden znak specjalny, dużą literę, cyfrę i długość conajmniej 8 znaków" : ""
-            countErrors(error)
-            return error
-        })
-
-        console.log(errorCount)
-    }
 
 
 
     return(
-        <form onSubmit={ (e) => submitHandler(e)}>
+        <form action={"login"} onSubmit={ (e) => submitHandler(e)}>
 
             <Box
                 sx={{
@@ -104,7 +40,7 @@ const RegistrationPage__form = () =>{
                     justifyContent:"space-between"
                 }}>
                 <Box>
-                    <TextField id="name" label="Imię" value={name} onChange={handleNameChange} variant="standard"  sx={{width:0.5, my:2}}/>
+                    <TextField id="name" label="Imię" value={userName} onChange={handleNameChange} variant="standard"  sx={{width:0.5, my:2}}/>
                     <Typography variant={"body2"}>{nameError}</Typography>
                 </Box>
                 <Box>
