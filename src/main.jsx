@@ -22,11 +22,19 @@ const theme = createTheme({
         h2:{
             fontSize:"1.25rem",
             fontWeight:400,
-            lineHeight:"2rem"
+            lineHeight:"2rem",
+            margin:"3rem 0 "
         },
         h3:{
             fontSize:"1.25rem",
             fontWeight:400,
+        },
+        h4:{
+            fontSize:"1",
+            fontWeight:400,
+        },
+        body2:{
+            color:"red"
         }
     }
 })
